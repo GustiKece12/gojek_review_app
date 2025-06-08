@@ -5,7 +5,7 @@ import seaborn as sns
 from wordcloud import WordCloud
 
 # Load dataset
-df = pd.read_csv('gojek_reviews_app1.csv')
+df = pd.read_csv('gojek_reviews_app2.csv')
 
 # Title
 st.title("Gojek App Review Sentiment Analysis")
