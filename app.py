@@ -52,11 +52,37 @@ if page == "Analisis Sentimen":
 
 # Page: Distribusi Sentimen
 elif page == "Distribusi Sentimen":
-    st.subheader("Distribusi Sentimen")
-    fig, ax = plt.subplots()
-    sns.countplot(data=df, x='stemmed', order=['negatif', 'netral', 'positif'], palette='viridis', ax=ax)
-    ax.set_title("Distribusi Sentimen")
-    st.pyplot(fig)
+    st.subheader("Distribusi Sentimen Ulasan Gojek") # Judul subheader lebih spesifik
+
+    # Membuat figure dan axes matplotlib dengan ukuran yang lebih baik
+    fig, ax = plt.subplots(figsize=(8, 6)) # Menyesuaikan ukuran plot
+
+    # Menggunakan seaborn countplot untuk menampilkan distribusi sentimen
+    # Pastikan 'df' di sini sudah berisi data dengan distribusi kustom Anda
+    sns.countplot(
+        data=df,
+        x='stemmed',
+        order=['negatif', 'netral', 'positif'], # Urutan kategori di sumbu X
+        palette='viridis', # Pilihan palette warna, bisa diganti jika mau
+        ax=ax
+    )
+
+    # Menambahkan judul dan label sumbu yang lebih deskriptif
+    ax.set_title("Distribusi Sentimen Ulasan Gojek", fontsize=16)
+    ax.set_xlabel("Kategori Sentimen", fontsize=12) # Label sumbu X
+    ax.set_ylabel("Jumlah Ulasan", fontsize=12) # Label sumbu Y
+
+    # Menambahkan jumlah di atas setiap batang (opsional, tapi sangat informatif)
+    for p in ax.patches:
+        ax.annotate(f'{int(p.get_height())}', # Teks yang ditampilkan (jumlah)
+                    (p.get_x() + p.get_width() / 2., p.get_height()), # Posisi teks
+                    ha='center', va='center', # Penjajaran horizontal dan vertikal
+                    xytext=(0, 10), # Offset dari puncak batang
+                    textcoords='offset points',
+                    fontsize=10) # Ukuran font teks
+
+    # Menyesuaikan layout agar tidak ada label yang terpotong
+    plt.tight_layout()
 
 # Page: Korelasi Rating & Sentimen
 elif page == "Korelasi Rating & Sentimen":
